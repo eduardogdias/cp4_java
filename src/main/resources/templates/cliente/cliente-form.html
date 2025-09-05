@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cadastro de Cliente</title>
+</head>
+<body>
+
+    <form th:action="@{/web/clientes/salvar}" th:object="${cliente}" method="post">
+        <label class="form-label">Nome</label>
+        <input type="text" th:field="*{nome}" />
+
+        <label class="form-label">CPF</label>
+        <input type="text" th:field="*{cpf}" />
+
+        <label class="form-label">Telefone</label>
+        <input type="text" th:field="*{telefone}" />
+
+        <label class="form-label">Endereço</label>
+        <input type="text" th:field="*{endereco}" />
+
+        <button type="submit">Cadastrar Cliente</button>
+    </form>
+
+
+</body>
+</html>
+
+

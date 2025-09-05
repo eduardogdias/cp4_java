@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lista de Clientes</title>
+</head>
+<body>
+
+	<h1>Clientes cadastrados</h1>
+
+	<table border="1">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nome</th>
+				<th>CPF</th>
+				<th>Telefone</th>
+				<th>Endereço</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cliente : ${clientes}">
+				<td th:text="${cliente.id}"></td>
+				<td th:text="${cliente.nome}"></td>
+				<td th:text="${cliente.cpf}"></td>
+				<td th:text="${cliente.telefone}"></td>
+				<td th:text="${cliente.endereco}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<br>
+	
+	<a th:href="@{/web/clientes/formulario}">Cadastrar novo cliente</a>
+	
+
+
+</body>
+</html>
+
+
