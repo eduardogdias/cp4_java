@@ -33,7 +33,7 @@ public class ClienteWebController {
     public String salvar(@ModelAttribute Cliente cliente) {
     	
     	if(cliente.getId() != null) {
-    		clienteService.salvarEdicao(cliente); //editar cliente
+    		clienteService.atualizar(cliente.getId(), cliente); //editar cliente
     	}
     	else {
     		clienteService.cadastrar(cliente); //cadastrar cliente

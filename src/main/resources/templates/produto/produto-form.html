@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastro de Produto</title>
+  <title>Cadastro de Produtos</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-  <!-- NAVBAR superior (mantém a sua navegação) -->
+  <!-- NAVBAR -->
   <div class="navbar">
     <div class="nav-links">
       <a th:href="@{/web/produtos/formulario}">Cadastro</a>
@@ -18,7 +18,7 @@
 
   <div class="page-layout">
 
-    <!-- SIDEBAR (apenas adicionada; não altera navbar ou container) -->
+    <!-- SIDEBAR -->
     <div class="sidebar">
       <ul>
         <li>
@@ -36,15 +36,13 @@
       </ul>
     </div>
     
-    
-    
-    
+  
     
 
-    <!-- CONTEÚDO PRINCIPAL (o seu card central vai aqui) -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <div class="content">
       <div class="container">
-        <h1 th:text="${produto.id == null} ? 'Cadastro de Produto' : 'Editar Produto'"></h1>
+        <h1 th:text="${produto.id == null} ? 'Cadastro de Produtos' : 'Editar Produto'"></h1>
 
         <form th:action="@{/web/produtos/salvar}" th:object="${produto}" method="post">
           <input type="hidden" th:field="*{id}" />

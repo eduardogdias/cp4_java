@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lista de Produtos</title>
+  <title>Lista de Vendas</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -11,8 +11,8 @@
   <!-- NAVBAR  -->
   <div class="navbar">
     <div class="nav-links">
-      <a th:href="@{/web/produtos/formulario}">Cadastro</a>
-      <a th:href="@{/web/produtos/listar}">Listagem</a>
+      <a th:href="@{/web/vendas/formulario}">Cadastro</a>
+      <a th:href="@{/web/vendas/listar}">Listagem</a>
     </div>
   </div>
 
@@ -26,7 +26,7 @@
         </li>
         <li>
           <img th:src="@{/img/produtos.png}" alt="Produtos">
-          <a th:href="@{/web/produtos/listar}">Produtos</a>
+          <a th:href="@{/web/vendas/listar}">Produtos</a>
         </li>
         <li>
           <img th:src="@{/img/vendas.png}" alt="Vendas">
@@ -38,35 +38,33 @@
     <!-- CONTEÚDO -->
     <div class="content">
       <div class="container">
-        <h1>Produtos cadastrados</h1>
+        <h1>Vendas cadastradas</h1>
 
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nome</th>
-                <th>Código</th>
-                <th>Categoria</th>
-                <th>Preço</th>
-                <th>Data de Validade</th>
+                <th>Cliente ID</th>
+                <th>Data da Venda</th>
+                <th>Valor Total</th>
+                <th>Desconto</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each="produto : ${produtos}">
-                <td th:text="${produto.id}"></td>
-                <td th:text="${produto.nome}"></td>
-                <td th:text="${produto.codigo}"></td>
-                <td th:text="${produto.categoria}"></td>
-                <td th:text="${produto.preco}"></td>
-                <td th:text="${produto.dataValidade}"></td>
+              <tr th:each="venda : ${vendas}">
+                <td th:text="${venda.id}"></td>
+                <td th:text="${venda.cliente.id}"></td>
+                <td th:text="${venda.dataVenda}"></td>
+                <td th:text="${venda.valorTotal}"></td>
+                <td th:text="${venda.desconto}"></td>
                 <td class="action-icons">
-                  <a th:href="@{/web/produtos/editar/{id}(id=${produto.id})}">
+                  <a th:href="@{/web/vendas/editar/{id}(id=${venda.id})}">
                     <img th:src="@{/img/edit.png}" alt="Editar">
                   </a>
-                  <a th:href="@{/web/produtos/excluir/{id}(id=${produto.id})}"
-                     onclick="return confirm('Tem certeza que deseja excluir este produto?');">
+                  <a th:href="@{/web/vendas/excluir/{id}(id=${venda.id})}"
+                     onclick="return confirm('Tem certeza que deseja excluir esta venda?');">
                     <img th:src="@{/img/delete.png}" alt="Excluir">
                   </a>
                 </td>

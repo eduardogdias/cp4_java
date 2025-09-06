@@ -1,9 +1,9 @@
 package br.com.fiap.controller.web;
 
 
-import br.com.fiap.model.entity.Cliente;
+
 import br.com.fiap.model.entity.Produto;
-import br.com.fiap.model.service.ClienteService;
+
 import br.com.fiap.model.service.ProdutoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,8 @@ public class ProdutoWebController {
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute Produto produto) {	
     	if(produto.getId() != null) {
-    		produtoService.salvarEdicao(produto); //editar produto
+    		//produtoService.salvarEdicao(produto); 
+    		produtoService.atualizar(produto.getId(), produto); //editar produto
     	}
     	else {
     		produtoService.cadastrar(produto); //cadastrar produto

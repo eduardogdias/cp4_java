@@ -33,34 +33,7 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
     
-    //usado no SALVAR do controler web
-    public Cliente salvarEdicao(Cliente cliente) {
-//    	System.out.println(cliente.getId());
-//    	System.out.println(cliente.getNome());
-//    	System.out.println(cliente.getCpf());
-//    	System.out.println(cliente.getTelefone());
-//    	System.out.println(cliente.getEndereco());
-//    	System.out.println("===================");
-//    	
-//    	Cliente c = buscarPorId(cliente.getId()).get();
-//    	
-//    	System.out.println(c.getId());
-//    	System.out.println(c.getNome());
-//    	System.out.println(c.getCpf());
-//    	System.out.println(c.getTelefone());
-//    	System.out.println(c.getEndereco());
-//    	
-//    	if (cliente.getCpf().equals(c.getCpf())) {
-//    		System.out.println("entrou if");
-//    		c.setNome(cliente.getNome());
-//    		c.setCpf(cliente.getCpf());
-//    		c.setTelefone(cliente.getTelefone());
-//    		c.setEndereco(cliente.getEndereco());
-//    		
-//    	}
-//    	return null;
-    	return clienteRepository.save(cliente);
-    }
+   
 
     public Cliente atualizar(Long id, Cliente cliente) {
         return clienteRepository.findById(id)
