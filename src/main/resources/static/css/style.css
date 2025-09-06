@@ -162,6 +162,7 @@ button {
 button:hover { background-color: #003680; }
 
 /* tabela */
+/* tabela */
 .table-wrap { overflow-x:auto; }
 table {
   width: 100%;
@@ -169,12 +170,11 @@ table {
   margin-top: 8px;
 }
 
-
-
 table th, table td {
   padding: 10px;
   border: 1px solid #e6e6e6;
   text-align: left;
+  
 }
 table th {
   background-color: var(--blue);
@@ -186,10 +186,10 @@ table tr:hover { background-color: #fff8e6; } /* amarelo claro hover */
 
 /* AÇÕES: ícones lado a lado */
 .action-icons {
-  display: inline-flex;
+  display: flex;              /* flex ao invés de inline-flex */
   gap: 10px;
   align-items: center;
-  justify-content: center;
+  justify-content: center;    /* centraliza na célula */
 }
 .action-icons img {
   width: 26px;
@@ -197,6 +197,7 @@ table tr:hover { background-color: #fff8e6; } /* amarelo claro hover */
   cursor: pointer;
   display: inline-block;
 }
+
 
 /* responsividade simples */
 @media (max-width: 860px) {

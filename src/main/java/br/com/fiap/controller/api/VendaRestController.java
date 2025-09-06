@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
-@RequestMapping("/vendas")
+@RequestMapping("/api/vendas")
 public class VendaRestController {
 
     @Autowired

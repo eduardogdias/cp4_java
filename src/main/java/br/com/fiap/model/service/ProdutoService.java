@@ -1,5 +1,6 @@
 package br.com.fiap.model.service;
 
+import br.com.fiap.model.entity.Cliente;
 import br.com.fiap.model.entity.Produto;
 import br.com.fiap.model.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,12 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
+    
+    //usado no SALVAR do controler web
+    public Produto salvarEdicao(Produto produto) {
+    	return produtoRepository.save(produto);
+    }
+    
     public Produto atualizar(Long id, Produto produto) {
         return produtoRepository.findById(id)
                 .map(p -> {

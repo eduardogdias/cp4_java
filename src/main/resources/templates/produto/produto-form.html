@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cadastro de Cliente</title>
+  <title>Cadastro de Produto</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -11,8 +11,8 @@
   <!-- NAVBAR superior (mantém a sua navegação) -->
   <div class="navbar">
     <div class="nav-links">
-      <a th:href="@{/web/clientes/formulario}">Cadastro</a>
-      <a th:href="@{/web/clientes/listar}">Listagem</a>
+      <a th:href="@{/web/produtos/formulario}">Cadastro</a>
+      <a th:href="@{/web/produtos/listar}">Listagem</a>
     </div>
   </div>
 
@@ -44,22 +44,25 @@
     <!-- CONTEÚDO PRINCIPAL (o seu card central vai aqui) -->
     <div class="content">
       <div class="container">
-        <h1 th:text="${cliente.id == null} ? 'Cadastro de Cliente' : 'Editar Cliente'"></h1>
+        <h1 th:text="${produto.id == null} ? 'Cadastro de Produto' : 'Editar Produto'"></h1>
 
-        <form th:action="@{/web/clientes/salvar}" th:object="${cliente}" method="post">
+        <form th:action="@{/web/produtos/salvar}" th:object="${produto}" method="post">
           <input type="hidden" th:field="*{id}" />
 
           <label>Nome:</label>
           <input type="text" th:field="*{nome}" required />
 
-          <label>CPF:</label>
-          <input type="text" th:field="*{cpf}" required />
+          <label>Código:</label>
+          <input type="text" th:field="*{codigo}" required />  
+          
+          <label>Categoria:</label>
+          <input type="text" th:field="*{categoria}" required />
 
-          <label>Telefone:</label>
-          <input type="text" th:field="*{telefone}" required />
-
-          <label>Endereço:</label>
-          <input type="text" th:field="*{endereco}" required />
+		  <label>Preço:</label>
+          <input type="text" th:field="*{preco}" required />
+          
+          <label>Data de Validade:</label>
+          <input type="text" th:field="*{dataValidade}" required />
 
           <button type="submit">Salvar</button>
         </form>
