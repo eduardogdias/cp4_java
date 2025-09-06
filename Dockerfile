@@ -1,16 +1,19 @@
-FROM ubuntu:latest AS build
+# Etapa 1: Build do projeto
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-RUN apt-get install maven -y
-RUN mvn clean install -DskipTests
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-FROM openjdk:17-jdk-slim
+# Etapa 2: Executar a aplicação
+FROM eclipse-temurin:17-jdk-jammy
 
+WORKDIR /app
 EXPOSE 8082
 
-COPY --from=build target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
