@@ -1,123 +1,168 @@
-# 🛒 Projeto SuperMarket
+# 🛒 Projeto SuperMarket (Parte II)
 
-Esta apresentação demonstra o funcionamento do sistema SuperMarket, que permite cadastrar produtos e clientes, registrar vendas de forma simples e acompanhar o histórico de transações. O sistema foi desenvolvido com Spring Boot, MySQL via Docker, utilizando Hibernate para mapeamento objeto-relacional e HATEOAS para tornar a API RESTful mais navegável. Nesta apresentação, mostramos desde o cadastro de produtos e clientes até a criação de uma venda, destacando a integração com o banco de dados e a geração automática das tabelas pelo Hibernate.
+Este repositório demonstra o funcionamento do sistema SuperMarket, que permite cadastrar produtos e clientes, registrar vendas de forma simples e acompanhar o histórico de transações. Para a parte 2 foram criados novos endpoints que permitem que a API seja acessada via WEB com HTML e Thymeleaf. O sistema desenvolvido com Java e Spring Boot, agora salva Clientes, Produtos e Vendas no Banco de Dados Postgres oferecido pelo Render, e o deploy está nessa mesma plataforma. Acessar a API via protocolos HTTP ainda é possível.
+
+---
+# 🔹 Pacotes utilizados e suas funções
+
+### Modelo MVC
+
+**1. Model:**
+- Entity → Mapeia tabelas e relacionamentos no banco.
+- Repository → Abstrai o acesso e consultas ao banco.
+- Service → Implementa lógica e regras de negócio.
+
+**2. View:**
+- Static → CSS e imagens
+- Templates → Páginas HTML
+
+**3. Controller:**
+- Controller HTTP → Expõe endpoints REST e manipula requisições/respostas.
+- Controller WEB → Expõe endpoints e mapeia páginas WEB.
+- Assembler → Constrói modelos HATEOAS para respostas enriquecidas.
+
+**IDEs utilizadas:**
+- Parte 1 → IntelliJ
+- Parte 2 → Eclipse
+---
+
+## Configuração Inicial no Spring Initializr (CP4 - Parte 2)
+![Imagem do projeto](imagem_git/projeto.png)
 
 ---
 
-## 👨‍💻 Integrantes
+## Deploy da API
 
-- Caroline Assis Silva - RM 557596
-- Eduardo Guilherme - RM 557886  
-- Enzo de Moura Silva - RM 556532  
-- Luis Henrique Gomes Cardoso - RM 558883  
+O Deploy da aplicação foi feito no Render. Acesse os links abaixo e coloque o endpoint no final.
 
----
-### 🔹 Pacotes utilizados e suas funções
+- Para retornar páginas ``HTML``:
+https://cp4-java-sv3f.onrender.com/web/
 
-Entity → Mapeia tabelas e relacionamentos no banco.
 
-Repository → Abstrai o acesso e consultas ao banco.
+- Para retornar em ``JSON``:
+https://cp4-java-sv3f.onrender.com/api/
 
-Service → Implementa lógica e regras de negócio.
 
-Controller → Expõe endpoints REST e manipula requisições/respostas.
-
-Assembler → Constrói modelos HATEOAS para respostas enriquecidas.
+**Obs:** Para testar no  `localhost` é necessário acessar pela porta 8082, como especificado no ``application.properties``
 
 ---
 
-## Configuração Inicial no Spring Initializr
-![Imagem do projeto](imagem_git/imagem-java.jpg)
+## Endpoints
+
+### JSON:
+#### 👥 Clientes (`/api/clientes`)
+
+| Método | URI                  | Descrição                                    |
+|--------|----------------------|----------------------------------------------|
+| GET    | `/api/clientes`      | Lista todos os clientes                      |
+| GET    | `/api/clientes/{id}` | Busca cliente por ID                         |
+| POST   | `/api/clientes`      | Cadastra um novo cliente                     |
+| PUT    | `/api/clientes/{id}` | Atualiza um cliente existente (substituição) |
+| PATCH  | `/api/clientes/{id}` | Atualiza parcialmente um cliente             |
+| DELETE | `/api/clientes/{id}` | Exclui um cliente por ID                     |
+
+#### 📦 Produtos (`/api/produtos`)
+
+| Método | URI                   | Descrição                                      |
+|--------|-----------------------|------------------------------------------------|
+| GET    | `/api/produtos`       | Lista todos os produtos                        |
+| GET    | `/api/produtos/{id}`  | Busca produto por ID                           |
+| POST   | `/api/produtos`       | Cadastra um novo produto                       |
+| PUT    | `/api/produtos/{id}`  | Atualiza um produto existente (substituição)   |
+| PATCH  | `/api/produtos/{id}`  | Atualiza parcialmente um produto               |
+| DELETE | `/api/produtos/{id}`  | Exclui um produto por ID                       |
+
+#### 💰 Vendas (`/api/vendas`)
+
+| Método | URI                  | Descrição                       |
+|--------|----------------------|---------------------------------|
+| GET    | `/api/vendas`        | Lista todas as vendas           |
+| GET    | `/api/vendas/{id}`   | Busca venda por ID              |
+| POST   | `/api/vendas`        | Registra uma nova venda         |
+| PATCH  | `/api/vendas/{id}`   | Atualiza parcialmente uma venda |
+| DELETE | `/api/vendas/{id}`   | Exclui uma venda por ID         |
 
 ---
-## 🔄 Exemplos de Requisições (JSON para Teste)
 
-🌐 URL Base da API
 
-http://34.86.191.111:8082
 
-📌 Clientes (/clientes)
-Listar todos
-curl -X GET http://34.86.191.111:8082/clientes
 
-Buscar por ID
-curl -X GET http://34.86.191.111:8082/clientes/1
+### HTML: 
+Estes controllers retornam páginas HTML, não JSON. E somente os GETs podem ser visualizados.
 
-Criar cliente
-curl -X POST http://34.86.191.111:8082/clientes \
-  -H "Content-Type: application/json" \
-  -d '{
+#### 👥 Clientes (`/web/clientes`)
+
+| Método | URI                        | Descrição                                     | View retornada              |
+|--------|----------------------------|-----------------------------------------------|-----------------------------|
+| GET    | `/web/clientes/listar`     | Lista todos os clientes                       | `cliente/cliente-listar`    |
+| GET    | `/web/clientes/formulario` | Exibe o formulário de cadastro/edição         | `cliente/cliente-form`      |
+| GET    | `/web/clientes/editar/{id}`| Exibe o formulário preenchido para edição     | `cliente/cliente-form`      |
+| POST   | `/web/clientes/salvar`     | Salva cliente (novo ou edição) e redireciona  | Redirect → `/listar`        |
+| GET    | `/web/clientes/excluir/{id}`| Exclui cliente e redireciona para listagem   | Redirect → `/listar`        |
+
+#### 📦 Produtos (`/web/produtos`)
+
+| Método | URI                         | Descrição                                      | View retornada              |
+|--------|-----------------------------|------------------------------------------------|-----------------------------|
+| GET    | `/web/produtos/listar`      | Lista todos os produtos                        | `produto/produto-listar`    |
+| GET    | `/web/produtos/formulario`  | Exibe o formulário de cadastro/edição          | `produto/produto-form`      |
+| GET    | `/web/produtos/editar/{id}` | Exibe o formulário preenchido para edição      | `produto/produto-form`      |
+| POST   | `/web/produtos/salvar`      | Salva produto (novo ou edição) e redireciona   | Redirect → `/listar`        |
+| GET    | `/web/produtos/excluir/{id}`| Exclui produto e redireciona para listagem     | Redirect → `/listar`        |
+
+#### 💰 Vendas (`/web/vendas`)
+
+| Método | URI                       | Descrição                                       | View retornada            |
+|--------|---------------------------|-------------------------------------------------|---------------------------|
+| GET    | `/web/vendas/listar`      | Lista todas as vendas                           | `venda/venda-listar`      |
+| GET    | `/web/vendas/formulario`  | Exibe o formulário de cadastro/edição           | `venda/venda-form`        |
+| GET    | `/web/vendas/editar/{id}` | Exibe o formulário preenchido para edição       | `venda/venda-form`        |
+| POST   | `/web/vendas/salvar`      | Salva venda (nova ou edição) e redireciona      | Redirect → `/listar`      |
+| GET    | `/web/vendas/excluir/{id}`| Exclui venda e redireciona para listagem        | Redirect → `/listar`      |
+
+
+---
+
+## 🔄 Exemplos de Requisições JSON
+
+- Exemplo de Request **Cliente**:
+````json
+{
     "nome": "Luis Cardoso",
     "cpf": "12345678901",
     "telefone": "11987654321",
     "endereco": "Rua Exemplo, 123 - São Paulo"
-  }'
+}
+````
 
-Atualizar cliente
-curl -X PUT http://34.86.191.111:8082/clientes/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Luis C. Atualizado",
-    "cpf": "12335579901",
-    "telefone": "11911112222",
-    "endereco": "Rua Nova, 456 - São Paulo"
-  }'
-
-Excluir cliente
-curl -X DELETE http://34.86.191.111:8082/clientes/1
-
----
-📌 Produtos (/produtos)
-Listar todos
-curl -X GET http://34.86.191.111:8082/produtos
-
-Buscar por ID
-curl -X GET http://34.86.191.111:8082/produtos/1
-
-Criar produto
-curl -X POST http://34.86.191.111:8082/produtos \
-  -H "Content-Type: application/json" \
-  -d '{
+- Exemplo de Request **Produto**:
+````json
+{
     "nome": "Arroz 5kg",
     "codigo": "ARROZ001",
     "categoria": "Alimentos",
     "preco": 25.90,
     "dataValidade": "2025-12-31"
-  }'
+}
+````
 
-Atualizar produto
-curl -X PUT http://34.86.191.111:8082/produtos/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Arroz Integral 5kg",
-    "codigo": "ARROZ001",
-    "categoria": "Alimentos Saudáveis",
-    "preco": 29.90,
-    "dataValidade": "2026-01-31"
-  }'
-
-Excluir produto
-curl -X DELETE http://34.86.191.111:8082/produtos/1
-
-📌 Vendas (/vendas)
-Listar todas
-curl -X GET http://34.86.191.111:8082/vendas
-
-Buscar por ID
-curl -X GET http://34.86.191.111:8082/vendas/1
-
----
-Criar venda
-
-⚠️ Precisa de um cliente já cadastrado (clienteId existente).
-
-curl -X POST http://34.86.191.111:8082/vendas \
-  -H "Content-Type: application/json" \
-  -d '{
+- Exemplo de Request **Venda**:
+````json
+{
     "clienteId": 1,
     "valorTotal": 100.50,
     "desconto": 10.00
-  }'
+}
+````
 
-Excluir venda
-curl -X DELETE http://34.86.191.111:8082/vendas/1
+---
+
+## Páginas HTML
+![Imagem do projeto](imagem_git/listagem.png)
+![Imagem do projeto](imagem_git/cadastro.png)
+
+---
+
+## Estrutura do Projeto
+
+![Imagem do projeto](imagem_git/estrutura.png)
